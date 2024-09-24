@@ -1,7 +1,5 @@
 # NGINX Docker image for SPAs
 
-[![docker pull steebchen/nginx-spa][image shield]][docker hub]
-
 This docker image can be used for single page apps (SPAs) in history mode. It serves your index.html if no other file matches.
 
 ## Quickstart
@@ -13,7 +11,7 @@ To create your own dockerfile, simply copy your distribution folder (often `dist
 # this will create a multi-stage docker build for minimizing size and security vulnerabilities
 # ...
 
-FROM steebchen/nginx-spa:stable
+FROM ghcr.io/dmitryarkh/nginx-spa:main
 
 # adapt the `dist/` folder to the output directory your build tool uses (such as `dist/`, `build/` or `www/`).
 COPY dist/ /app
@@ -43,11 +41,6 @@ This is super useful, but may break your app if you have app urls with dots in i
 
 Files including a dot will also have a Cache-Control header set to instruct browsers to cache content for 30 days. This is perfect if you're using webpack or similar frameworks which usually makes use of creating files with hashes in their names, but if your static files will be just named "bundle.js" or "0.css" (index.html is fine of course) you should avoid this image.
 
-## Supported tags and `dockerfile` links
-
-- [`stable` (*dockerfile*)][stable] (recommended)
-- [`latest` (*dockerfile*)][latest]
-
 ## Notes
 
 - Gzip is enabled for html, xml, js and css
@@ -55,8 +48,3 @@ Files including a dot will also have a Cache-Control header set to instruct brow
 - The nginx daemon is turned off in the settings
 
 [history api]: https://developer.mozilla.org/en-US/docs/Web/API/History_API
-[latest]: https://github.com/steebchen/nginx-spa/blob/master/dockerfile
-[stable]: https://github.com/steebchen/nginx-spa/blob/stable/dockerfile
-[base image]: https://github.com/nginxinc/docker-nginx
-[image shield]: https://img.shields.io/badge/dockerhub-steebchen%2Fnginx--spa-blue.svg
-[docker hub]: https://registry.hub.docker.com/u/steebchen/nginx-spa/
